@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+<property resource="application.properties" />
+
+<appender name="elastalert"
+          class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOG_PATH}/elastalert.log</file>
+    <encoder
+            class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+        <Pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %level - [%thread] [%C.%M:%L] -  %message%n</Pattern>
+    </encoder>
+
+    <rollingPolicy
+            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>${LOG_PATH}/archive/%d{yyyy/MM/dd, aux}/dms-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+        <timeBasedFileNamingAndTriggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+            <maxFileSize>25mb</maxFileSize>
+        </timeBasedFileNamingAndTriggeringPolicy>
+    </rollingPolicy>
+</appender>
+
+
+
+    <logger name="com.example.elastalert" level="TRACE" additivity="false">
+        <appender-ref ref="elastalert" />
+    </logger>
+
+  
+</configuration>
